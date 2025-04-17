@@ -10,27 +10,27 @@ exports.createBlog = async (req, res) => {
     author: req.user.id, 
     coverImage
   });
-  res.json(blog);
+  res.status(200).json(blog);
 };
 
 exports.getAllBlogs = async (req, res) => {
   const blogs = await Blog.find().populate('author', 'username');
-  res.json(blogs);
+  res.status(200).json(blogs);
 };
 
 exports.getSingleBlog = async (req, res) => {
   const blog = await Blog.findById(req.params.id).populate('author', 'username');
-  res.json(blog);
+  res.status(200).json(blog);
 };
 
 exports.updateBlog = async (req, res) => {
   const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(blog);
+  res.status(200).json(blog);
 };
 
 exports.deleteBlog = async (req, res) => {
   await Blog.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Deleted' });
+  res.status(200).json({ message: 'Deleted' });
 };
 
 exports.likeBlog = async (req, res) => {
@@ -44,5 +44,5 @@ exports.likeBlog = async (req, res) => {
     blog.likes.push(userId);
   }
   await blog.save();
-  res.json(blog);
+  res.status(200).json(blog);
 };

@@ -6,7 +6,7 @@ exports.register = async (req, res) => {
   const { username, email, password } = req.body;
   const hashed = await bcrypt.hash(password, 10);
   const user = await User.create({ username, email, password: hashed });
-  res.json(user);
+  res.status(200).json({message: "Your account has been created successfuly."});
 }; 
 
 exports.login = async (req, res) => {
@@ -18,4 +18,3 @@ exports.login = async (req, res) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.json({ token });
 }; 
-
