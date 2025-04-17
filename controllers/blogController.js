@@ -1,13 +1,15 @@
 const Blog = require('../models/Blog');
 
 exports.createBlog = async (req, res) => {
-  const {title, content} = req.body; 
+  const { title, content, category, shortDesc } = req.body;
   const coverImage = req.file?.path || "";
 
   const blog = await Blog.create({
-    title, 
-    content, 
-    author: req.user.id, 
+    title,
+    content,
+    category,
+    shortDesc,
+    author: req.user.id,
     coverImage
   });
   res.status(200).json(blog);
